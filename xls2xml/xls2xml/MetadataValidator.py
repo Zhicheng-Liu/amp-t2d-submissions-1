@@ -6,8 +6,8 @@ This module depends on cerberus and pyyaml
 
 from __future__ import print_function
 import sys
-from cerberus import Validator
 import yaml
+from CustomValidator import CustomValidator
 
 class MetadataValidator(object):
     """
@@ -23,7 +23,7 @@ class MetadataValidator(object):
         """
         with open(schema_filename, 'r') as schema_file:
             schema = yaml.load(schema_file)
-            self.validator = Validator(schema=schema)
+            self.validator = CustomValidator(schema=schema)
             self.validator.allow_unknown = True
 
     def validate_data(self, data, schema_key):

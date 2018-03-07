@@ -16,6 +16,10 @@ Sample: # Key for this schema
       type: string
       regex: '^SAM\d+$'
       nullable: True
+    Phenotype:
+      type: string
+      nullable: False
+      PhenotypeOntology: True
     Gender:
       type: string
       allowed: ['male', 'female', 'unknown']
