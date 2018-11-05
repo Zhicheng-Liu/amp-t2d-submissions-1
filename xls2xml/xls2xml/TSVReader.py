@@ -6,6 +6,7 @@ only the keys that are defined in a configuration file.
 This module depends on tsv and pyyaml.
 """
 from __future__ import print_function
+import sys
 import re
 from tsv import TsvReader
 import yaml
