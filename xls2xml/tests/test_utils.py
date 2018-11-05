@@ -29,9 +29,9 @@ def test_header_to_xml_tag():
 
 def test_validate_file():
     validation_schema = 'data/T2D_xls2xml_v1.schema'
-    tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
+    tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v3.conf', 'Sample')
     assert utils.validate_file(tsv_reader, validation_schema)
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     xls_reader.set_current_conf_key('Sample')
     assert utils.validate_file(xls_reader, validation_schema)
 
@@ -39,20 +39,20 @@ def test_extract_rows():
     validation_schema = 'data/T2D_xls2xml_v1.schema'
 
     rows = []
-    tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
+    tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v3.conf', 'Sample')
     assert utils.extract_rows(tsv_reader, 'Sample', validation_schema, rows)
     assert isinstance(rows, list)
     assert 6 == len(rows)
-    tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v1.conf', 'Sample')
+    tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v3.conf', 'Sample')
     for a, b in zip(rows, tsv_reader):
         assert 0 == cmp(a, b)
 
     rows = []
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     assert utils.extract_rows(xls_reader, 'Sample', validation_schema, rows)
     assert isinstance(rows, list)
     assert 6 == len(rows)
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     xls_reader.set_current_conf_key('Sample')
     for a, b in zip(rows, xls_reader):
         assert 0 == cmp(a, b)
@@ -62,7 +62,7 @@ def test_extract_rows():
 
 def test_rows_to_xml():
     rows = []
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     assert utils.extract_rows(xls_reader, 'Sample', 'data/T2D_xls2xml_v1.schema', rows)
     xml = utils.rows_to_xml(rows, 'Sample')
     assert isinstance(xml, etree._Element)
@@ -77,20 +77,20 @@ def test_rows_to_xml():
 
 def test_transform_xml():
     rows = []
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     assert utils.extract_rows(xls_reader, 'Sample', 'data/T2D_xls2xml_v1.schema', rows)
     input_xml = utils.rows_to_xml(rows, 'Sample')
-    output_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v1.xslt')
+    output_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v3.xslt')
     with open('data/example_samples.xml') as example_xml:
         assert example_xml.readline() == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         assert etree.tostring(output_xml, pretty_print=True) == example_xml.read()
 
 def test_save_xml():
     rows = []
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     assert utils.extract_rows(xls_reader, 'Sample', 'data/T2D_xls2xml_v1.schema', rows)
     input_xml = utils.rows_to_xml(rows, 'Sample')
-    transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v1.xslt')
+    transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v3.xslt')
     io_stream = StringIO()
     utils.save_xml(transformed_xml, io_stream)
     io_stream.seek(0)
@@ -99,16 +99,16 @@ def test_save_xml():
 
 def test_write_empty_xml():
     rows = []
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     assert utils.extract_rows(xls_reader, 'File', 'data/T2D_xls2xml_v1.schema', rows)
     input_xml = utils.rows_to_xml(rows, 'File')
-    transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v1.xslt')
+    transformed_xml = utils.transform_xml(input_xml, 'data/T2D_xls2xml_v3.xslt')
     assert transformed_xml.getroot() is None # to make sure the transformed_xml is empty
     with open('data/out_empty.xml', 'w') as xml_file:
         utils.save_xml(transformed_xml, xml_file)
 
 def test_multiple_sheets_to_xml():
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     xls_readers = [ ('Analysis', xls_reader), ('File', xls_reader) ]
     output_xml = utils.multiple_objects_to_xml(xls_readers, 'data/T2D_xls2xml_v1.schema',
                                                'data/T2D_xls2xml_v2.xslt')
@@ -122,8 +122,8 @@ def test_multiple_sheets_to_xml():
                                       'data/T2D_xls2xml_v2.xslt')
 
 def test_multiple_tsvs_to_xml():
-    analysis_tsv_reader = TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Analysis')
-    files_tsv_reader = TSVReader('data/example_files.tsv', 'data/T2D_xls2xml_v1.conf', 'File')
+    analysis_tsv_reader = TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v3.conf', 'Analysis')
+    files_tsv_reader = TSVReader('data/example_files.tsv', 'data/T2D_xls2xml_v3.conf', 'File')
     tsv_readers = [ ('Analysis', analysis_tsv_reader), ('File', files_tsv_reader) ]
     output_xml = utils.multiple_objects_to_xml(tsv_readers, 'data/T2D_xls2xml_v1.schema',
                                             'data/T2D_xls2xml_v2.xslt')
@@ -133,8 +133,8 @@ def test_multiple_tsvs_to_xml():
 
     with pytest.raises(Exception):
         tsv_readers = [
-            ('Exception', TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Exception')),
-            ('Expected', TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v1.conf', 'Expected'))
+            ('Exception', TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v3.conf', 'Exception')),
+            ('Expected', TSVReader('data/example_analysis.tsv', 'data/T2D_xls2xml_v3.conf', 'Expected'))
         ]
         utils.multiple_objects_to_xml(tsv_readers, 'data/T2D_xls2xml_v1.schema',
                                       'data/T2D_xls2xml_v2.xslt')

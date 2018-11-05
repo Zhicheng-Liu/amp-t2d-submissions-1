@@ -12,7 +12,7 @@ Please note that because XML tag must start with a letter or underscore and cont
 letters, digits, hyphens, underscores and periods, any violating characters should be replaced
 with underscores.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
                 xmlns:exsl="http://exslt.org/common"
                 extension-element-prefixes="exsl">
 <xsl:output method="xml" indent="yes"/>

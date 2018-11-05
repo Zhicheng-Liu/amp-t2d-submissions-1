@@ -48,30 +48,30 @@ python ./xls2xml/xls2xml.py -h
 ```
 Here are some of the examples you could try out:
 ```commandline
-python ./xls2xml/validate_xls.py --conf tests/data/T2D_xls2xml_v1.conf --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_AMP_T2D_Submission_form_V2.xlsx 
-python ./xls2xml/validate_tsv.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_samples.tsv
-python ./xls2xml/xls2tsv.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2tsv.tsv
-python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v1.xslt tests/data/example_samples.tsv tests/data/output_tsv2xml.xml
-python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml_single.xml
-python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis,File --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml_multiple.xml
-python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_analysis.tsv tests/data/output_tsv2xml_single.xml
-python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v1.conf --conf-key Analysis,File --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_analysis.tsv,tests/data/example_files.tsv tests/data/output_tsv2xml_multiple.xml
+python ./xls2xml/validate_xls.py --conf tests/data/T2D_xls2xml_v3.conf --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_AMP_T2D_Submission_form_V2.xlsx 
+python ./xls2xml/validate_tsv.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_samples.tsv
+python ./xls2xml/xls2tsv.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2tsv.tsv
+python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Sample --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v1.xslt tests/data/example_samples.tsv tests/data/output_tsv2xml.xml
+python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Analysis --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml_single.xml
+python ./xls2xml/xls2xml.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Analysis,File --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_AMP_T2D_Submission_form_V2.xlsx tests/data/output_xls2xml_multiple.xml
+python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Analysis --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_analysis.tsv tests/data/output_tsv2xml_single.xml
+python ./xls2xml/tsv2xml.py --conf tests/data/T2D_xls2xml_v3.conf --conf-key Analysis,File --schema tests/data/T2D_xls2xml_v1.schema --xslt tests/data/T2D_xls2xml_v2.xslt tests/data/example_analysis.tsv,tests/data/example_files.tsv tests/data/output_tsv2xml_multiple.xml
 ```
 
 ### Writing the configuration files
 There are a few different configuration files for these scripts. The examples of each could be found in tests/data:
 ```commandline
-tests/data/T2D_xls2xml_v1.conf
+tests/data/T2D_xls2xml_v3.conf
 tests/data/T2D_xls2xml_v1.schema
-tests/data/T2D_xls2xml_v1.xslt
 tests/data/T2D_xls2xml_v2.xslt # for combining multiple worksheets into a single xml file
+tests/data/T2D_xls2xml_v3.xslt # for allowing user defined columns
 ```
 
 For the details of how they they should be written, there are comments in each examples above.
 
 There are other data files served as test cases input. They are also used in the example usages as illustrated above:
 ```commandline
-tests/data/example_AMP_T2D_Submission_form_V2.xlsx
+tests/data/example_AMP_T2D_Submission_form_V3.xlsx
 tests/data/example_samples.tsv
 tests/data/example_samples.xml
 tests/data/example_analysis.xml

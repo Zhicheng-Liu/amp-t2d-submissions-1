@@ -6,12 +6,16 @@ only the keys that are defined in a configuration file.
 This module depends on tsv and pyyaml.
 """
 from __future__ import print_function
+import re
 from tsv import TsvReader
 import yaml
 from Reader import Reader
 
 REQUIRED_HEADERS_KEY_NAME = 'required'
 OPTIONAL_HEADERS_KEY_NAME = 'optional'
+USER_DEFINED_HEADERS_KEY_NAME = 'user_defined_columns'
+USER_DEFINED_HEADERS_REGEX_KEY_NAME = 'regex'
+USER_DEFINED_HEADERS_PLACEHOLDER_KEY_NAME = 'placeholder'
 DATA_TYPE_KEY_NAME = 'data_type'
 DATA_TYPE_TO_FUNCTION = {
     'int':      int,
@@ -42,6 +46,7 @@ class TSVReader(Reader):
         self.tsv_reader = TsvReader(open(tsv_filename, 'r'))
         self.tsv_iterator = iter(self.tsv_reader)
         self.headers = self.tsv_iterator.next()
+        self.user_defined_headers = []
         self.valid = None
 
     def __del__(self):
@@ -74,6 +79,26 @@ class TSVReader(Reader):
         if self.valid is not None:
             return self.valid
 
+        user_define_header = self.tsv_conf[self.tsv_conf_key].get(USER_DEFINED_HEADERS_KEY_NAME, {})
+        if user_define_header:
+            user_defined_header_regex = user_define_header.get(USER_DEFINED_HEADERS_REGEX_KEY_NAME, '')
+            user_defined_header_placeholder = user_define_header.get(USER_DEFINED_HEADERS_PLACEHOLDER_KEY_NAME, '')
+
+            if not user_defined_header_regex or not user_defined_header_placeholder:
+                print('TSV file does not have properly configured ' + USER_DEFINED_HEADERS_KEY_NAME
+                      + '!', file=sys.stderr)
+                self.valid = False
+                return self.valid
+
+            required_headers = self.tsv_conf[self.tsv_conf_key].get(REQUIRED_HEADERS_KEY_NAME, [])
+            optional_headers = self.tsv_conf[self.tsv_conf_key].get(OPTIONAL_HEADERS_KEY_NAME, [])
+            for header in self.headers:
+                if header not in required_headers and \
+                        header not in optional_headers and \
+                        header != user_defined_header_placeholder and \
+                        re.match(user_defined_header_regex, header) is not None:
+                    self.user_defined_headers.append(header)
+
         required_headers = self.tsv_conf[self.tsv_conf_key].get(REQUIRED_HEADERS_KEY_NAME, [])
         self.valid = set(required_headers) <= set(self.headers) # issubset
 
@@ -105,7 +130,7 @@ class TSVReader(Reader):
         required_headers = self.tsv_conf[self.tsv_conf_key].get(REQUIRED_HEADERS_KEY_NAME, [])
         optional_headers = self.tsv_conf[self.tsv_conf_key].get(OPTIONAL_HEADERS_KEY_NAME, [])
         data_type = self.tsv_conf[self.tsv_conf_key].get(DATA_TYPE_KEY_NAME, {})
-        for header in required_headers+optional_headers:
+        for header in required_headers+optional_headers+self.user_defined_headers:
             cell = ''
 
             header_index = num_cells

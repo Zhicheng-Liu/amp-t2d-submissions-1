@@ -2,19 +2,19 @@ import pytest
 from xls2xml import XLSReader
 
 def test_valid_worksheets():
-    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     worksheets = xls_reader.valid_worksheets()
     assert isinstance(worksheets, list)
     assert set(worksheets) == {'Sample', 'Analysis', 'File'}
 
 def test_get_valid_conf_keys():
-    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     worksheets = xls_reader.valid_worksheets()
     assert isinstance(worksheets, list)
     assert set(worksheets) == {'Sample', 'Analysis', 'File'}
 
 def test_set_current_conf_key():
-    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     active_worksheet = xls_reader.active_worksheet
     assert active_worksheet is None
     xls_reader.set_current_conf_key('Sample')
@@ -25,7 +25,7 @@ def test_set_current_conf_key():
     assert active_worksheet == 'Analysis'
 
 def test_get_current_headers():
-    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader =  XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
     xls_reader.set_current_conf_key('Sample')
     headers = xls_reader.get_current_headers()
     assert isinstance(headers, list)
@@ -34,7 +34,8 @@ def test_get_current_headers():
                             u'T2D', u'Case_Control', u'Description', u'Center_name',
                             u'Hispanic or Latino; of Spanish origin', u'Age', u'Year of Birth',
                             u'Year of first visit', u'Cell Type', u'Maternal_id', u'Paternal_id',
-                            u'Novel Attributes'}
+                            u'Novel Attributes',u'Attribute_[test_column_2]',u'Attribute_[test_column_1]',
+                            u'Attribute_[add_value]'}
     xls_reader.set_current_conf_key('Analysis')
     headers = xls_reader.get_current_headers()
     assert isinstance(headers, list)
@@ -49,19 +50,20 @@ def test_get_current_headers():
         xls_reader.get_current_headers()
 
 def test_next_row():
-    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V2.xlsx', 'data/T2D_xls2xml_v1.conf')
+    xls_reader = XLSReader('data/example_AMP_T2D_Submission_form_V3.xlsx', 'data/T2D_xls2xml_v3.conf')
 
     xls_reader.set_current_conf_key('Sample')
     row = xls_reader.next()
     assert isinstance(row, dict)
     assert 0 == cmp(row, {'Hispanic or Latino; of Spanish origin': None, 'Phenotype': 'MeSH:D006262',
-                          'row_num': 2, 'Description': 'Male normal', 'Center_name': 'WTGC cambridge',
-                          'Case_Control': 'Control', 'T2D': 0L, 'Analysis_alias': 'AN001',
-                          'Geno_ID': None, 'Year of first visit': None, 'Cell Type': 'Blood',
-                          'Maternal_id': 'SAM111113', 'Gender': 'male', 'Subject_ID': 'SAM111111',
-                          'Paternal_id': 'SAM111115', 'Cohort ID': 'CO1111', 'Novel Attributes': None,
-                          'Ethnicity Description': None, 'Year of Birth': 1986L, 'Sample_ID': 'SAM111111',
-                          'Age': 31L, 'Ethnicity': 'EUWH'})
+                          'Attribute_[test_column_1]': 'attribute_test_value_1_1', 'row_num': 2,
+                          'Description': 'Male normal', 'Center_name': 'WTGC cambridge', 'Case_Control': 'Control',
+                          'T2D': 0L, 'Analysis_alias': 'AN001', 'Geno_ID': None, 'Year of first visit': None,
+                          'Cell Type': 'Blood', 'Maternal_id': 'SAM111113', 'Gender': 'male', 'Subject_ID': 'SAM111111',
+                          'Paternal_id': 'SAM111115', 'Cohort ID': 'CO1111',
+                          'Attribute_[test_column_2]': 'attribute_test_value_2_1', 'Novel Attributes': None,
+                          'Ethnicity Description': None, 'Year of Birth': 1986L, 'Sample_ID': 'SAM111111', 'Age': 31L,
+                          'Ethnicity': 'EUWH'})
 
     xls_reader.set_current_conf_key('Analysis')
     row = xls_reader.next()

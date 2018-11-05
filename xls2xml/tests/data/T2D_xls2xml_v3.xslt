@@ -12,9 +12,11 @@ Please note that because XML tag must start with a letter or underscore and cont
 letters, digits, hyphens, underscores and periods, any violating characters should be replaced
 with underscores.
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
+                xmlns:regexp="http://exslt.org/regular-expressions"
+                extension-element-prefixes="regexp">
 <xsl:output method="xml" indent="yes"/>
-<xsl:template match="/SampleSet"><!-->Should match <key_in_config>+'Set'<-->
+<xsl:template match="SampleSet"><!-->Should match <key_in_config>+'Set'<-->
   <SAMPLE_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.sample.xsd">
     <xsl:for-each select="Sample"><!-->Should select from <key_in_config><-->
       <SAMPLE>
@@ -52,13 +54,21 @@ with underscores.
                 <TAG>year_of_birth</TAG>
                 <VALUE><xsl:value-of select="Year_of_Birth"/></VALUE>
             </SAMPLE_ATTRIBUTE>
+            <xsl:for-each select="*">
+              <xsl:if test="regexp:test(name(.), '^Attribute__[a-zA-Z0-9_]*_$')">
+                <SAMPLE_ATTRIBUTE>
+                  <TAG><xsl:value-of select="name(.)"/></TAG>
+                  <VALUE><xsl:value-of select="."/></VALUE>
+                </SAMPLE_ATTRIBUTE>
+              </xsl:if>
+            </xsl:for-each>
         </SAMPLE_ATTRIBUTES>
       </SAMPLE>
     </xsl:for-each>
   </SAMPLE_SET>
 </xsl:template>
 
-<xsl:template match="/AnalysisSet">
+<xsl:template match="AnalysisSet">
   <ANALYSIS_SET noNamespaceSchemaLocation="ftp://ftp.sra.ebi.ac.uk/meta/xsd/sra_1_5/SRA.analysis.xsd">
     <xsl:for-each select="Analysis">
       <ANALYSIS>

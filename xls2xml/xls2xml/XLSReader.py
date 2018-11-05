@@ -9,6 +9,7 @@ This module depends on openpyxl and pyyaml.
 
 from __future__ import print_function
 import sys
+import re
 from openpyxl import load_workbook
 import yaml
 from Reader import Reader
@@ -16,6 +17,9 @@ from Reader import Reader
 WORKSHEETS_KEY_NAME = 'worksheets'
 REQUIRED_HEADERS_KEY_NAME = 'required'
 OPTIONAL_HEADERS_KEY_NAME = 'optional'
+USER_DEFINED_HEADERS_KEY_NAME = 'user_defined_columns'
+USER_DEFINED_HEADERS_REGEX_KEY_NAME = 'regex'
+USER_DEFINED_HEADERS_PLACEHOLDER_KEY_NAME = 'placeholder'
 
 class XLSReader(Reader):
     """
@@ -38,6 +42,7 @@ class XLSReader(Reader):
         self._active_worksheet = None
         self.row_offset = {}
         self.headers = {}
+        self.user_defined_headers = {}
         self.valid = None
 
     def __iter__(self):
@@ -73,9 +78,30 @@ class XLSReader(Reader):
             if worksheet.max_row < 2:
                 continue
 
+            self.headers[title] = [cell.value.strip() for cell in worksheet[1] if cell.value is not None]
+
+            user_defined_header = self.xls_conf[title].get(USER_DEFINED_HEADERS_KEY_NAME, {})
+            if user_defined_header:
+                user_defined_header_regex = user_defined_header.get(USER_DEFINED_HEADERS_REGEX_KEY_NAME, '')
+                user_defined_header_placeholder = user_defined_header.get(USER_DEFINED_HEADERS_PLACEHOLDER_KEY_NAME, '')
+
+                if not user_defined_header_regex or not user_defined_header_placeholder:
+                    print('Worksheet ' + title + ' does not have properly configured ' + USER_DEFINED_HEADERS_KEY_NAME
+                          + '!', file=sys.stderr)
+                    self.valid = False
+                    continue
+
+                self.user_defined_headers[title] = []
+                required_headers = self.xls_conf[title].get(REQUIRED_HEADERS_KEY_NAME, [])
+                optional_headers = self.xls_conf[title].get(OPTIONAL_HEADERS_KEY_NAME, [])
+                for header in self.headers[title]:
+                    if header not in required_headers and \
+                            header not in optional_headers and \
+                            header != user_defined_header_placeholder and \
+                            re.match(user_defined_header_regex, header) is not None:
+                        self.user_defined_headers[title].append(header)
+
             # Check required headers are present
-            self.headers[title] = [cell.value if cell.value is None else cell.value.strip()
-                                   for cell in worksheet[1]]
             required_headers = self.xls_conf[title].get(REQUIRED_HEADERS_KEY_NAME, [])
             if set(required_headers) <= set(self.headers[title]): # issubset
                 self.worksheets.append(title)
@@ -159,6 +185,7 @@ class XLSReader(Reader):
 
         required_headers = self.xls_conf[worksheet].get(REQUIRED_HEADERS_KEY_NAME, [])
         optional_headers = self.xls_conf[worksheet].get(OPTIONAL_HEADERS_KEY_NAME, [])
+        user_defined_headers = self.user_defined_headers.get(worksheet, [])
 
         for row in self.workbook[worksheet].iter_rows(min_row=self.row_offset[worksheet]):
             num_cells = 0
@@ -167,7 +194,7 @@ class XLSReader(Reader):
 
             data = {}
             has_notnull = False
-            for header in required_headers+optional_headers:
+            for header in required_headers+optional_headers+user_defined_headers:
                 header_index = num_cells
                 if header in self.headers[worksheet]:
                     header_index = self.headers[worksheet].index(header)

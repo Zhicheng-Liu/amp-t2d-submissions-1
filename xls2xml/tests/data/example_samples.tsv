@@ -1,8 +1,7 @@
-Sample_ID	Subject_ID	Geno_ID	Phenotype	Gender	Analysis_alias	Cohort ID	Ethnicity	Ethnicity Description	T2D	Case_Control	Description	Center_name	Hispanic or Latino; of Spanish origin	Age	Year of Birth	Year of first visit	Cell Type	Maternal_id	Paternal_id	Novel Attributes
-SAM111111	SAM111111		MeSH:D006262	male	AN001	CO1111	EUWH		0	Control	Male normal	WTGC cambridge		31	1986		Blood	SAM111113	SAM111115	
-SAM111112	SAM111112	FEM1	MeSH:D006262	female	AN001	CO1111	EUWH		0	Control	normal	WTGC cambridge		21		2016	Blood	SAM111114	SAM111116	
-SAM111113	SAM111113		EFO:0001360	female	AN001	CO1112	EUWH		1	Case		WTGC cambridge		67		2016	Blood			
-SAM111114	SAM111114		EFO:0001360,EFO:0001359	female	AN001	CO1112	EUWH		1	Case		WTGC cambridge		72		2015	Blood			
-SAM111115	SAM111115		EFO:0001359	male	AN001	CO1112	EUWH		0	Case		WTGC cambridge		56		2017	Blood			
-SAM111116	SAM111116		EFO:0001359	male	AN001	CO1112	UNKN		0	Case		WTGC cambridge	1	73		2017	Blood			
-
+Sample_ID	Subject_ID	Geno_ID	Phenotype	Gender	Analysis_alias	Cohort ID	Ethnicity	Ethnicity Description	T2D	Case_Control	Description	Center_name	Hispanic or Latino; of Spanish origin	Age	Year of Birth	Year of first visit	Cell Type	Maternal_id	Paternal_id	Novel Attributes	Attribute_[test_column_1]	Attribute_[test_column_2]	Attribute_[add_value]
+SAM111111	SAM111111		MeSH:D006262	male	AN001	CO1111	EUWH		0	Control	Male normal	WTGC cambridge		31	1986		Blood	SAM111113	SAM111115		attribute_test_value_1_1	attribute_test_value_2_1	
+SAM111112	SAM111112	FEM1	MeSH:D006262	female	AN001	CO1111	EUWH		0	Control	normal	WTGC cambridge		21		2016	Blood	SAM111114	SAM111116		attribute_test_value_1_2	attribute_test_value_2_2	
+SAM111113	SAM111113		EFO:0001360	female	AN001	CO1112	EUWH		1	Case		WTGC cambridge		67		2016	Blood				attribute_test_value_1_3	attribute_test_value_2_3	
+SAM111114	SAM111114		EFO:0001360,EFO:0001359	female	AN001	CO1112	EUWH		1	Case		WTGC cambridge		72		2015	Blood				attribute_test_value_1_4	attribute_test_value_2_4	
+SAM111115	SAM111115		EFO:0001359	male	AN001	CO1112	EUWH		0	Case		WTGC cambridge		56		2017	Blood				attribute_test_value_1_5	attribute_test_value_2_5	
+SAM111116	SAM111116		EFO:0001359	male	AN001	CO1112	UNKN		0	Case		WTGC cambridge	1	73		2017	Blood				attribute_test_value_1_6	attribute_test_value_2_6	
