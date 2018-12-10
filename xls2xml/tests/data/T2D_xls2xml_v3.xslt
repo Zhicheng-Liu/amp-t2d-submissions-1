@@ -55,7 +55,7 @@ with underscores.
                 <VALUE><xsl:value-of select="Year_of_Birth"/></VALUE>
             </SAMPLE_ATTRIBUTE>
             <xsl:for-each select="*">
-              <xsl:if test="regexp:test(name(.), '^Attribute__[a-zA-Z0-9_]*_$')">
+              <xsl:if test="regexp:test(name(.), '^attribute__[a-z0-9_]*_$')">
                 <SAMPLE_ATTRIBUTE>
                   <TAG><xsl:value-of select="name(.)"/></TAG>
                   <VALUE><xsl:value-of select="."/></VALUE>

@@ -37,8 +37,8 @@ def test_get_current_headers():
     assert set(headers) == {'Sample_ID', 'Subject_ID', 'Geno_ID', 'Phenotype', 'Gender', 'Analysis_alias', 'Cohort ID',
                             'Ethnicity', 'Ethnicity Description', 'T2D', 'Case_Control', 'Description', 'Center_name',
                             'Hispanic or Latino; of Spanish origin', 'Age', 'Year of Birth', 'Year of first visit',
-                            'Cell Type', 'Maternal_id', 'Paternal_id', 'Novel Attributes', 'Attribute_[test_column_2]',
-                            'Attribute_[test_column_1]', 'Attribute_[add_value]'}
+                            'Cell Type', 'Maternal_id', 'Paternal_id', 'Novel Attributes', 'attribute_[test_column_2]',
+                            'attribute_[test_column_1]', 'attribute_[add_value]'}
 
 def test_next():
     tsv_reader = TSVReader('data/example_samples.tsv', 'data/T2D_xls2xml_v3.conf', 'Sample')
@@ -46,12 +46,12 @@ def test_next():
     assert isinstance(row, dict)
     print(row)
     assert 0 == cmp(row, {'Hispanic or Latino; of Spanish origin': None, 'Phenotype': 'MeSH:D006262',
-                          'Attribute_[test_column_1]': 'attribute_test_value_1_1', 'Description': 'Male normal',
+                          'attribute_[test_column_1]': 'attribute_test_value_1_1', 'Description': 'Male normal',
                           'Center_name': 'WTGC cambridge', 'Case_Control': 'Control', 'T2D': 0,
                           'Analysis_alias': 'AN001', 'Geno_ID': None, 'Year of first visit': None, 'Cell Type': 'Blood',
                           'Maternal_id': 'SAM111113', 'Gender': 'male', 'Subject_ID': 'SAM111111',
                           'Paternal_id': 'SAM111115', 'Cohort ID': 'CO1111',
-                          'Attribute_[test_column_2]': 'attribute_test_value_2_1', 'Novel Attributes': None,
+                          'attribute_[test_column_2]': 'attribute_test_value_2_1', 'Novel Attributes': None,
                           'Ethnicity Description': None, 'Year of Birth': '1986', 'Sample_ID': 'SAM111111', 'Age': '31',
                           'Ethnicity': 'EUWH'})
     for row in tsv_reader:

@@ -33,12 +33,12 @@
         <VALUE>1986</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_1_</TAG>
-        <VALUE>attribute_test_value_1_1</VALUE>
+        <TAG>attribute__test_column_2_</TAG>
+        <VALUE>attribute_test_value_2_1</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_2_</TAG>
-        <VALUE>attribute_test_value_2_1</VALUE>
+        <TAG>attribute__test_column_1_</TAG>
+        <VALUE>attribute_test_value_1_1</VALUE>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
@@ -75,13 +75,13 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_1_</TAG>
-        <VALUE>attribute_test_value_1_2</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_2_</TAG>
+        <TAG>attribute__test_column_2_</TAG>
         <VALUE>attribute_test_value_2_2</VALUE>
       </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>attribute__test_column_1_</TAG>
+        <VALUE>attribute_test_value_1_2</VALUE>
+      </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
@@ -117,13 +117,13 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_1_</TAG>
-        <VALUE>attribute_test_value_1_3</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_2_</TAG>
+        <TAG>attribute__test_column_2_</TAG>
         <VALUE>attribute_test_value_2_3</VALUE>
       </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>attribute__test_column_1_</TAG>
+        <VALUE>attribute_test_value_1_3</VALUE>
+      </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
@@ -159,13 +159,13 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_1_</TAG>
-        <VALUE>attribute_test_value_1_4</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_2_</TAG>
+        <TAG>attribute__test_column_2_</TAG>
         <VALUE>attribute_test_value_2_4</VALUE>
       </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>attribute__test_column_1_</TAG>
+        <VALUE>attribute_test_value_1_4</VALUE>
+      </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
@@ -201,13 +201,13 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_1_</TAG>
-        <VALUE>attribute_test_value_1_5</VALUE>
-      </SAMPLE_ATTRIBUTE>
-      <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_2_</TAG>
+        <TAG>attribute__test_column_2_</TAG>
         <VALUE>attribute_test_value_2_5</VALUE>
       </SAMPLE_ATTRIBUTE>
+      <SAMPLE_ATTRIBUTE>
+        <TAG>attribute__test_column_1_</TAG>
+        <VALUE>attribute_test_value_1_5</VALUE>
+      </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
   <SAMPLE center_name="WTGC cambridge">
@@ -243,12 +243,12 @@
         <VALUE/>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_1_</TAG>
-        <VALUE>attribute_test_value_1_6</VALUE>
+        <TAG>attribute__test_column_2_</TAG>
+        <VALUE>attribute_test_value_2_6</VALUE>
       </SAMPLE_ATTRIBUTE>
       <SAMPLE_ATTRIBUTE>
-        <TAG>Attribute__test_column_2_</TAG>
-        <VALUE>attribute_test_value_2_6</VALUE>
+        <TAG>attribute__test_column_1_</TAG>
+        <VALUE>attribute_test_value_1_6</VALUE>
       </SAMPLE_ATTRIBUTE>
     </SAMPLE_ATTRIBUTES>
   </SAMPLE>
